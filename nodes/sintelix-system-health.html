@@ -1,0 +1,27 @@
+<!-- Test node -->
+<script type="text/javascript" >
+    RED.nodes.registerType("sintelix-system-health", {
+        category: "sintelix",
+        defaults: {
+            sintelix: {type: "sintelix-credentials", required: true},
+            name: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "sintelix-flower.png",
+        label: function() {
+            return this.name || "sintelix-system-health";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="sintelix-system-health">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
+        <input type="text" id="node-input-sintelix">
+    </div>
+</script>

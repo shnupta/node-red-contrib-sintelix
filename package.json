@@ -2,14 +2,19 @@
   "name": "node-red-contrib-sintelix",
   "version": "0.0.1",
   "description": "A set of nodes that allow you to interact with the Sintelix API.",
-  "main": "sintelix.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shnupta/node-red-contrib-sintelix.git"
   },
   "author": "Casey Williams",
   "license": "ISC",
   "node-red": {
     "nodes": {
+      "sintelix-credentials": "nodes/sintelix-credentials.js",
+      "sintelix-system-health": "nodes/sintelix-system-health.js"
     }
   }
 }
