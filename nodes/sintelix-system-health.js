@@ -1,5 +1,5 @@
 module.exports = function(RED) {
-    function SystemHealthNode(config) {
+    function SintelixSystemHealthNode(config) {
         RED.nodes.createNode(this, config);
 
         this.sintelixConfig = RED.nodes.getNode(config.sintelix);
@@ -7,9 +7,9 @@ module.exports = function(RED) {
 
         this.on('input', function(msg) {
             // get the system health here
-            msg.payload = "Get system health";
+            msg.payload = this.sintelixConfig.jsession_cookie;
             this.send(msg);
         });
     }
-    RED.nodes.registerType("sintelix-system-health", SystemHealthNode);
+    RED.nodes.registerType("sintelix-system-health", SintelixSystemHealthNode);
 }

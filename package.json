@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/shnupta/node-red-contrib-sintelix.git"
   },
+  "dependencies": {
+    "request": "^2.88.0"
+  },
   "author": "Casey Williams",
   "license": "ISC",
   "node-red": {
