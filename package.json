@@ -17,7 +17,8 @@
   "node-red": {
     "nodes": {
       "sintelix-credentials": "nodes/sintelix-credentials.js",
-      "sintelix-system-health": "nodes/sintelix-system-health.js"
+      "sintelix-system-health": "nodes/sintelix-system-health.js",
+      "sintelix-list-projects": "nodes/sintelix-list-projects.js"
     }
   }
 }

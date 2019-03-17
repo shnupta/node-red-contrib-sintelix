@@ -1,6 +1,6 @@
-<!-- System health node -->
+<!-- List projects node -->
 <script type="text/javascript" >
-    RED.nodes.registerType("sintelix-system-health", {
+    RED.nodes.registerType("sintelix-list-projects", {
         category: "sintelix",
         defaults: {
             sintelix: {type: "sintelix-credentials", required: true},
@@ -10,12 +10,12 @@
         outputs: 1,
         icon: "sintelix-flower.png",
         label: function() {
-            return this.name || "sintelix-system-health";
+            return this.name || "sintelix-list-projects";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="sintelix-system-health">
+<script type="text/x-red" data-template-name="sintelix-list-projects">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
