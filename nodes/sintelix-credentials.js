@@ -1,21 +1,25 @@
 module.exports = function(RED) {
 
     var request = require('request');
-
-    var localUserCache = {};
     
     function SintelixCredentialsNode(n) {
         RED.nodes.createNode(this, n);
+        var node = this;
 
-        if(this.credentials.username && this.credentials.password && this.credentials.host) {
-            if(!localUserCache.hasOwnProperty('jsession-cookie')) {
-                this.login().then(function(body) {
-                    if(body.status == 200) {
-                        localUserCache['jsession-cookie'] = body.jsession_cookie;
-                        this.jsession_cookie = body.jsession_cookie;
-                    }
-                });
-            }
+        this.jar = request.jar();
+
+        if (this.credentials.username && this.credentials.password && 
+            this.credentials.host) {
+            this.post(`${this.credentials.host}/login.do`, 
+            `j_username=${this.credentials.username}&j_password=${this.credentials.password}`).then(function(response) {
+                if (response.status === 200) {
+                    this.jsession_cookie = response.headers['set-cookie'];
+                } else {
+                    node.warn('failed to login');
+                }
+            }).catch(function(err) {
+                node.error(err);
+            });
         }
     }
     RED.nodes.registerType("sintelix-credentials", SintelixCredentialsNode, {
@@ -26,46 +30,31 @@ module.exports = function(RED) {
         }
     });
 
-    // TODO: Change this to be like the Twitter API and have a get functio
-    // and login via the node constructor.
-    SintelixCredentialsNode.prototype.login = function() {
-        var node = this;
-        console.log('attempting login');
-
-        var options = {
-            url: `${node.credentials.host}/login.do`,
-            body: `j_username=${node.credentials.username}&j_password=${node.credentials.password}`
-        };
-
-        return new Promise(function(resolve, reject) {
-            request.post(options, function(err, response, body) {
-                if(err) {
-                    reject(err);
-                } else {
-                    resolve({
-                        status: response.statusCode,
-                        jsession_cookie: response.headers['set-cookie'],
-                        body: response.body
-                    });
-                }
-            });
-        });
-    }
-
-    SintelixCredentialsNode.prototype.post = function(url, body) {
+    SintelixCredentialsNode.prototype.post = function(uri, body) {
         var node = this;
 
         var options = {
-            url: url,
+            uri: uri,
+            jar: this.jar,
+            headers: {'content-type' : 'application/x-www-form-urlencoded'}
         };
 
-        if(body) {
+        if (body) {
             options.body = body;
         }
 
-        // TODO: See earlier todo and complete that first.
-        if(!this.jsession_cookie) {
-            this.login
-        }
+        return new Promise(function(resolve, reject) {
+           request.post(options, function(err, response, body) {
+               if (err) {
+                   reject(err);
+               } else {
+                   resolve({
+                    status: response.statusCode,
+                    headers: response.headers,
+                    body: body
+                   });
+               }
+           });
+        });
     }
 }
