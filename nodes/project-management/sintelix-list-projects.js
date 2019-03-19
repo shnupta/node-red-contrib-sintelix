@@ -8,12 +8,12 @@ module.exports = function(RED) {
 
         this.on('input', function(msg) {
             this.sintelixConfig.post(`${credentials.host}/services/projects/list`).then(function(response) {
-                msg.payload = response.body;
+                msg.payload = JSON.parse(response.body);
                 node.send(msg);
             }).catch(function(err) {
                 node.error(err);
             });
         })
     }
-    RED.nodes.registerType('sintelix-list-projects', SintelixListProjectsNode);
+    RED.nodes.registerType('list-projects', SintelixListProjectsNode);
 }

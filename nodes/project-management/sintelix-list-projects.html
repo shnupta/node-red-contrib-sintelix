@@ -1,22 +1,22 @@
-<!-- System health node -->
+<!-- List projects node -->
 <script type="text/javascript" >
-    RED.nodes.registerType("sintelix-system-health", {
+    RED.nodes.registerType("list-projects", {
         category: "sintelix",
         defaults: {
             sintelix: {type: "sintelix-credentials", required: true},
             name: {value: ""}
         },
         inputs: 1,
-        outputs: 2,
+        outputs: 1,
         icon: "sintelix-flower.png",
         color: "#EDF5FF",
         label: function() {
-            return this.name || "sintelix-system-health";
+            return this.name || "list-projects";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="sintelix-system-health">
+<script type="text/x-red" data-template-name="list-projects">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -26,3 +26,14 @@
         <input type="text" id="node-input-sintelix">
     </div>
 </script>
+
+<script type="text/x-red" data-help-name="list-projects">
+    <p>The list projects node grabs all of the projects that the credentials config has permissions to view.</p>
+    <h3>Inputs</h3>
+    <p>Any input just causes the node to make another request to the API
+            and output the latest information.
+    </p>
+    <h3>Output</h3>
+    <p>The node outputs the array of projects, which are JSON objects.
+    </p>
+ </script>

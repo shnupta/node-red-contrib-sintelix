@@ -1,6 +1,6 @@
-<!-- List projects node -->
+<!-- System health node -->
 <script type="text/javascript" >
-    RED.nodes.registerType("sintelix-list-projects", {
+    RED.nodes.registerType("system-health", {
         category: "sintelix",
         defaults: {
             sintelix: {type: "sintelix-credentials", required: true},
@@ -11,12 +11,12 @@
         icon: "sintelix-flower.png",
         color: "#EDF5FF",
         label: function() {
-            return this.name || "sintelix-list-projects";
+            return this.name || "system-health";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="sintelix-list-projects">
+<script type="text/x-red" data-template-name="system-health">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -26,3 +26,14 @@
         <input type="text" id="node-input-sintelix">
     </div>
 </script>
+
+<script type="text/x-red" data-help-name="system-health">
+    <p>The system health node retrieves memory and task information from the server.</p>
+    <h3>Inputs</h3>
+    <p>Any input just causes the node to make another request to the API
+            and output the latest information.
+    </p>
+    <h3>Output</h3>
+    <p>The node outputs a map of the system info under <code>msg.payload</code>
+    </p>
+ </script>

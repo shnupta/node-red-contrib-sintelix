@@ -3,22 +3,19 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         var node = this;
 
-
+        // Grab the config node in order to make the request
+        // Grab the credentials of this node to pass the host in the request url
         this.sintelixConfig = RED.nodes.getNode(config.sintelix);
         var credentials = RED.nodes.getCredentials(config.sintelix);
 
         this.on('input', function(msg) {
-            // get the system health here
             this.sintelixConfig.post(`${credentials.host}/system/health`).then(function(response) {
-                var mem = {};
-                var task = {};
-                mem.payload = 100 - parseInt(JSON.parse(response.body).memFree.slice(0, -2));
-                task.payload = JSON.parse(response.body).taskCount;
-                node.send([mem, task]);
+                msg.payload = JSON.parse(response.body); // A JSON object of server info
+                node.send(msg);
             }).catch(function(err) {
                 node.error(err);
             });
         });
     }
-    RED.nodes.registerType("sintelix-system-health", SintelixSystemHealthNode);
+    RED.nodes.registerType("system-health", SintelixSystemHealthNode);
 }
