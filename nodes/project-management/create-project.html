@@ -1,0 +1,34 @@
+<!-- Create project node -->
+<script type="text/javascript" >
+    RED.nodes.registerType("create-project", {
+        category: "sintelix",
+        defaults: {
+            sintelix: {type: "sintelix-credentials", required: true},
+            name: {value: ""}
+        },
+        inputs: 1,
+        icon: "sintelix-flower.png",
+        color: "#EDF5FF",
+        label: function() {
+            return this.name || "create-project";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="create-project">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
+        <input type="text" id="node-input-sintelix">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="create-project">
+    <p>The create project node takes an object with the required parameters and creates a new sintelix project.</p>
+    <h3>Inputs</h3>
+    <p>Construct this later.
+    </p>
+ </script>
