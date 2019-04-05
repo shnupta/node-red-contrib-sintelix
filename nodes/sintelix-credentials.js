@@ -34,19 +34,23 @@ module.exports = function(RED) {
     // This is the login function to be used after the initial node creation when
     // reauthentication is needed.
     SintelixCredentialsNode.prototype.login = function() {
-        this.post(`${this.credentials.host}/login.do`, 
-            `j_username=${this.credentials.username}&j_password=${this.credentials.password}`).then(function(response) {
-            if (response.status === 200) {
-                this.jsession_cookie = response.headers['set-cookie'];
-            } else {
-                node.warn('failed to login');
-            }
-        }).catch(function(err) {
-            node.error(err);
+        var node = this;
+        return new Promise(function(resolve, reject) {
+            node.post(`${node.credentials.host}/login.do`, 
+                `j_username=${node.credentials.username}&j_password=${node.credentials.password}`).then(function(response) {
+                if (response.status === 200) {
+                    node.jsession_cookie = response.headers['set-cookie'];
+                    resolve();
+                } else {
+                    reject('failed to log in');
+                }
+            }).catch(function(err) {
+                reject(err);
+            });
         });
     }
 
-    SintelixCredentialsNode.prototype.post = function(uri, body) {
+    SintelixCredentialsNode.prototype.post = function(uri, body, formData) {
         var node = this;
 
         // Request options to send along, specify the jar so that the cookies
@@ -57,12 +61,16 @@ module.exports = function(RED) {
             headers: {'content-type' : 'application/x-www-form-urlencoded'}
         };
 
-        if (body) {
+        if(body) {
             options.body = body;
         }
 
+        if (formData) {
+            options.formData = formData;
+        }
+
         return new Promise(function(resolve, reject) {
-            request.post(options, function(err, response, body) {
+            request.post(options, function(err, response, resBody) {
                 if (err) {
                    reject(err);
                 } else {
@@ -70,14 +78,15 @@ module.exports = function(RED) {
                         resolve({
                             status: response.statusCode,
                             headers: response.headers,
-                            body: body,
+                            body: resBody,
                             request: response.request
                         });
                     } else if(response.headers['x-session-error'] == "Not Logged In") {
-                        node.login().then(() => node.post(uri, body));
+                        node.login().then(() => node.post(uri, body, formData)).catch(function(err) {
+                            reject(err);
+                        });
                     } else {
-                        node.warn(response);
-                        reject('Unknown error occurred.');
+                        reject(response);
                    }
                 }
             });

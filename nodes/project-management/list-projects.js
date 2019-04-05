@@ -1,5 +1,5 @@
 module.exports = function(RED) {
-    function SintelixListProjectsNode(config) {
+    function ListProjectsNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
 
@@ -13,7 +13,7 @@ module.exports = function(RED) {
             }).catch(function(err) {
                 node.error(err);
             });
-        })
+        });
     }
-    RED.nodes.registerType('list-projects', SintelixListProjectsNode);
+    RED.nodes.registerType('list-projects', ListProjectsNode);
 }

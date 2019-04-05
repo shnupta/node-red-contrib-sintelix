@@ -7,6 +7,7 @@
             name: {value: ""}
         },
         inputs: 1,
+        outputs: 1,
         icon: "sintelix-flower.png",
         color: "#EDF5FF",
         label: function() {
@@ -29,6 +30,44 @@
 <script type="text/x-red" data-help-name="create-project">
     <p>The create project node takes an object with the required parameters and creates a new sintelix project.</p>
     <h3>Inputs</h3>
-    <p>Construct this later.
+    <dl class="message-properties">
+        <dt>name
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The name to be given to the created project</dd>
+        <dt class="optional">security <span class="property-type">Object</span></dt>
+        <dd>The security to be attached to the created project</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>
+        A map of parameters should be passed as <code>msg.payload</code>.
+        See Inputs for the names and types of the parameters of the map.
     </p>
+    <p>
+        The security map (although optional itself) has a required parameter, mode.
+        The mode is a string that is either <code>"SECURED"</code> or <code>"UNSECURED"</code>
+
+        If it is the former, you can send some extra data to set the security of the project.
+        You can add a list of users and groups that have access to the Sintelix project once created.
+    </p>
+    <p>
+        Below is an example of what <code>msg.payload</code> could look like.
+    </p>
+    <pre>
+{
+    "name": "My New Project",
+    "security": {
+        "mode": "SECURED",
+        "properties": {
+        "users": [
+            "myuser1",
+            "myuser2"
+        ],
+        "groups": [
+            "mygroup1"
+        ]
+        }
+    }
+}
+    </pre>
  </script>
