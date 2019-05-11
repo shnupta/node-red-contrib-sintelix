@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-sintelix",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A set of nodes that allow you to interact with the Sintelix API.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
