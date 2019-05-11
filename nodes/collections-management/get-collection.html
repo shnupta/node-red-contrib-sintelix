@@ -1,0 +1,43 @@
+<!-- Get collection node -->
+<script type="text/javascript" >
+    RED.nodes.registerType("get-collection", {
+        category: "sintelix",
+        defaults: {
+            sintelix: {type: "sintelix-credentials", required: true},
+            name: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "sintelix-flower.png",
+        color: "#EDF5FF",
+        label: function() {
+            return this.name || "get-collection";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="get-collection">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
+        <input type="text" id="node-input-sintelix">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="get-collection">
+    <p>The get collection node gets the collection whose id matches the one specified.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>collectionId
+            <span class="property-type">int</span>
+        </dt>
+        <dd>The id of the collection you wish to retrieve</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>
+        <code>msg.payload</code> should contain a map of one value - <code>collectionId</code>.
+    </p>
+ </script>

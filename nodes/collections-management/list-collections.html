@@ -1,0 +1,42 @@
+<!-- List collections node -->
+<script type="text/javascript" >
+    RED.nodes.registerType("list-collections", {
+        category: "sintelix",
+        defaults: {
+            sintelix: {type: "sintelix-credentials", required: true},
+            name: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "sintelix-flower.png",
+        color: "#EDF5FF",
+        label: function() {
+            return this.name || "list-collections";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="list-collections">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
+        <input type="text" id="node-input-sintelix">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="list-collections">
+    <p>The list projects node grabs all of the collecitons that the specified project contains</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>projectId
+            <span class="property-type">integer</span>
+        </dt>
+        <dd>The id of the project to get collections from</dd>
+    </dl>
+    <h3>Output</h3>
+    <p>The node outputs the array of collections, which are JSON objects.
+    </p>
+ </script>

@@ -1,10 +1,15 @@
 module.exports = function(RED) {
 
     var request = require('request');
+    var objectToFormData = require('object-to-formdata');
     
     function SintelixCredentialsNode(n) {
         RED.nodes.createNode(this, n);
         var node = this;
+
+        this.urlencoded = "application/x-www-form-urlencoded";
+        this.multipart = "multipart/form-data";
+        this.applicationjson = "application/json";
 
         // Cookie Jar to make storing the cookies easy!
         this.jar = request.jar();
@@ -50,16 +55,21 @@ module.exports = function(RED) {
         });
     }
 
-    SintelixCredentialsNode.prototype.post = function(uri, body, formData) {
+    SintelixCredentialsNode.prototype.post = function(uri, body, formData, contentType) {
         var node = this;
 
         // Request options to send along, specify the jar so that the cookies
         // are sent too
+
         var options = {
             uri: uri,
             jar: this.jar,
-            headers: {'content-type' : 'application/x-www-form-urlencoded'}
+            headers: {'content-type' : node.urlencoded}
         };
+
+        if(contentType) {
+            options.headers["content-type"] = contentType;
+        }
 
         if(body) {
             options.body = body;
@@ -82,11 +92,11 @@ module.exports = function(RED) {
                             request: response.request
                         });
                     } else if(response.headers['x-session-error'] == "Not Logged In") {
-                        node.login().then(() => node.post(uri, body, formData)).catch(function(err) {
+                        node.login().then(() => node.post(uri, body, formData, contentType)).catch(function(err) {
                             reject(err);
                         });
                     } else {
-                        reject(response);
+                        reject({response: response, requestBody: body});
                    }
                 }
             });

@@ -1,0 +1,66 @@
+<!-- Submit URLs node -->
+<script type="text/javascript" >
+    RED.nodes.registerType("collection-submit-urls", {
+        category: "sintelix",
+        defaults: {
+            sintelix: {type: "sintelix-credentials", required: true},
+            name: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "sintelix-flower.png",
+        color: "#EDF5FF",
+        label: function() {
+            return this.name || "collection-submit-urls";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="collection-submit-urls">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
+        <input type="text" id="node-input-sintelix">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="collection-submit-urls">
+    <p>Submits the selection of URLs passed to Sintelix to be ingested and added to the specified collection.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>urls
+            <span class="property-type">array</span>
+        </dt>
+        <dd>An array of the urls to be processed</dd>
+        <dt>collectionId
+            <span class="property-type">integer</span>
+        </dt>
+        <dd>The id of the collection to add the processed urls to</dd>
+        <dt class="optional">ingestionConfig <span class="property-type">string</span></dt>
+        <dd>The ingestion configuration to be used when ingesting the urls</dd>
+        <dt class="optional">metadata <span class="property-type">Object</span></dt>
+        <dd>Additional metadata entries. These are added to the document as properties in the "External" category</dd>
+        <dt class="optional">fullXml <span class="property-type">bool</span></dt>
+        <dd>Return Full Document XML</dd>
+        <dt class="optional">reportNetworks <span class="property-type">bool</span></dt>
+        <dd>For each network update, return entity mappings to that network</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <ol class="node-ports">
+        <li>Standard output
+            <dl class="message-properties">
+                <dt>payload <span class="property-type">string</span></dt>
+                <dd>The sintelix document xml after processing</dd>
+            </dl>
+        </li>
+    </ol>
+    <h3>Details</h3>
+    <p>
+        A map of parameters should be passed as <code>msg.payload</code>.
+        See Inputs for the names and types of the parameters of the map.
+    </p>
+    </pre>
+ </script>

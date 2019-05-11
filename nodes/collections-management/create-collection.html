@@ -1,0 +1,54 @@
+<!-- Create collection node -->
+<script type="text/javascript" >
+    RED.nodes.registerType("create-collection", {
+        category: "sintelix",
+        defaults: {
+            sintelix: {type: "sintelix-credentials", required: true},
+            name: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "sintelix-flower.png",
+        color: "#EDF5FF",
+        label: function() {
+            return this.name || "create-collection";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="create-collection">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
+        <input type="text" id="node-input-sintelix">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="create-collection">
+    <p>The create collection node takes an object with the required parameters and creates a new sintelix collection for the specified project.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>name
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The name to be given to the created project</dd>
+        <dt>projectId
+            <span class="property-type">integer</span>
+        </dt>
+        <dd>The id of the project to add the collection to</dd>
+        <dt class="option">ingestionConfig
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The name of the ingestion configuration to use for this colleciton</dd>
+        <dt class="optional">security <span class="property-type">Object</span></dt>
+        <dd>The security to be attached to the created project</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>
+        A map of parameters should be passed as <code>msg.payload</code>.
+        See Inputs for the names and types of the parameters of the map.
+    </p>
+ </script>

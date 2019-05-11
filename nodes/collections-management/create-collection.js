@@ -1,5 +1,5 @@
 module.exports = function(RED) {
-    function CreateProjectNode(config) {
+    function CreateCollectionNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
 
@@ -11,6 +11,9 @@ module.exports = function(RED) {
             // validate that msg.payload has the required parameters correctly formatted
             if(obj.name == null || obj.name == "") {
                 return node.error("Name cannot be empty");
+            }
+            if(obj.projectId == null) {
+                return node.error("Project id cannot be empty");
             }
             // They want the project to have a security
             if(obj.security != null) {
@@ -24,18 +27,14 @@ module.exports = function(RED) {
                     return node.error("An unsecured project cannot have security properties.");
                 }
             }
-            this.sintelixConfig.post(`${credentials.host}/services/projects/create`, JSON.stringify(obj)).then(function(response) {
+            this.sintelixConfig.post(`${credentials.host}/services/collections/create`, JSON.stringify(obj)).then(function(response) {
                 msg.payload = parseInt(response.body);
                 node.send(msg);
             }).catch(function(err) {
-                if(err["exception"] == "ProjectAlreadyExistsException") {
-                    node.error("A project already exists with that name.")
-                } else {
-                    node.error(err);
-                }
+                node.error(err);
             });
         });
     }
 
-    RED.nodes.registerType('create-project', CreateProjectNode);
+    RED.nodes.registerType('create-collection', CreateCollectionNode);
 }
