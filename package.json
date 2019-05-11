@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-sintelix",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A set of nodes that allow you to interact with the Sintelix API.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,13 @@
     "request": "^2.88.0"
   },
   "author": "Casey Williams",
-  "license": "ISC",
+  "license": "MIT",
+  "keywords": [
+    "sintelix",
+    "analysis",
+    "text-intelligence",
+    "node-red"
+  ],
   "node-red": {
     "nodes": {
       "sintelix-credentials": "nodes/sintelix-credentials.js",
