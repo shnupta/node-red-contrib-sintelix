@@ -36,8 +36,10 @@ module.exports = function(RED) {
               ];
 
             this.sintelixConfig.post(`${credentials.host}/services/networks/searchNodes`, JSON.stringify(obj)).then(function(response) {
-                msg.payload = JSON.parse(response.body);
-                node.send(msg);
+                var res = JSON.parse(response.body);
+                var msg1 = {payload: {ids: res.hits, networkId: config.networkId}};
+                var msg2 = {payload: res.total};
+                node.send([msg1, msg2]);
             }).catch(function(err) {
                 node.error(err);
             });

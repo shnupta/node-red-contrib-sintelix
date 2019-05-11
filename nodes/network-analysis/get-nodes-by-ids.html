@@ -1,0 +1,56 @@
+<!-- Get nodes by ids node -->
+<script type="text/javascript" >
+    RED.nodes.registerType("get-nodes-by-ids", {
+        category: "sintelix",
+        defaults: {
+            sintelix: {type: "sintelix-credentials", required: true},
+            name: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "sintelix-flower.png",
+        color: "#EDF5FF",
+        label: function() {
+            return this.name || "get-nodes-by-ids";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="get-nodes-by-ids">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
+        <input type="text" id="node-input-sintelix">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="get-nodes-by-ids">
+    <p>The get nodes by ids node gets a list of nodes from a network</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>networkId
+            <span class="property-type">int</span>
+        </dt>
+        <dd>The id of the network you wish to retrieve nodes from</dd>
+        <dt>ids
+            <span class="property-type">array</span>
+        </dt>
+        <dd>An array of the ids of the nodes you wish to retrieve</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <ol class="node-ports">
+            <li>Standard output
+                <dl class="message-properties">
+                    <dt>payload <span class="property-type">array</span></dt>
+                    <dd>Array of the node objects</dd>
+                </dl>
+            </li>
+        </ol>
+    <h3>Details</h3>
+    <p>
+        <code>msg.payload</code> should contain a map of <code>networkId</code> and <code>ids</code>.
+    </p>
+ </script>

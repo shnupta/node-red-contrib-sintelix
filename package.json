@@ -10,9 +10,7 @@
     "url": "https://github.com/shnupta/node-red-contrib-sintelix.git"
   },
   "dependencies": {
-    "request": "^2.88.0",
-    "object-to-formdata": "^1.6.4",
-    "form-data": "^2.3.3"
+    "request": "^2.88.0"
   },
   "author": "Casey Williams",
   "license": "ISC",
@@ -27,7 +25,8 @@
       "list-collections": "nodes/collections-management/list-collections.js",
       "create-collection": "nodes/collections-management/create-collection.js",
       "get-collection": "nodes/collections-management/get-collection.js",
-      "search-nodes": "nodes/network-analysis/search-nodes.js"
+      "search-nodes": "nodes/network-analysis/search-nodes.js",
+      "get-nodes-by-ids": "nodes/network-analysis/get-nodes-by-ids.js"
     }
   }
 }
