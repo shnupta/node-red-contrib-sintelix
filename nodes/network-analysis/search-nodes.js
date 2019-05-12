@@ -23,12 +23,6 @@ module.exports = function(RED) {
             obj.count = config.count;
             obj.query = [
                 {
-                    "filterMethod": "filterType",
-                    "types": [
-                        "Person"
-                    ]
-                },
-                {
                     "filterMethod": "filterQS",
                     "field": "label",
                     "value": queryString
@@ -37,9 +31,8 @@ module.exports = function(RED) {
 
             this.sintelixConfig.post(`${credentials.host}/services/networks/searchNodes`, JSON.stringify(obj)).then(function(response) {
                 var res = JSON.parse(response.body);
-                var msg1 = {payload: {ids: res.hits, networkId: config.networkId}};
-                var msg2 = {payload: res.total};
-                node.send([msg1, msg2]);
+                var msg1 = {payload: {ids: res.hits, total: res.total, networkId: config.networkId}};
+                node.send(msg1);
             }).catch(function(err) {
                 node.error(err);
             });

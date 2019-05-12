@@ -1,6 +1,6 @@
-<!-- Search nodes node -->
+<!-- Get nodes by type node -->
 <script type="text/javascript" >
-    RED.nodes.registerType("search-nodes", {
+    RED.nodes.registerType("get-nodes-by-type", {
         category: "sintelix",
         defaults: {
             sintelix: {type: "sintelix-credentials", required: true},
@@ -8,20 +8,19 @@
             networkId: {value: 0, required: true},
             level: {value: "cl", required: true},
             start: {value: 0, required: true},
-            limit: {value: 20, required: true},
-            count: {value: false, required: true}
+            limit: {value: 20, required: true}
         },
         inputs: 1,
         outputs: 1,
         icon: "sintelix-flower.png",
         color: "#EDF5FF",
         label: function() {
-            return this.name || "search-nodes";
+            return this.name || "get-nodes-by-type";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="search-nodes">
+<script type="text/x-red" data-template-name="get-nodes-by-type">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -47,18 +46,27 @@
         <input type="number" id="node-input-limit">
     </div>
     <div class="form-row">
-        <label for="node-input-count">Count</label>
-        <input type="checkbox" id="node-input-count">
-    </div>
-    <div class="form-row">
         <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
         <input type="text" id="node-input-sintelix">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="search-nodes">
-    <p>The search nodes input takes various queries and filter and returns a list of nodes that match the criteria.</p>
+<script type="text/x-red" data-help-name="get-nodes-by-type">
+    <p>The get nodes by type node gets a list of node types of a specified type from a network</p>
     <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>msg.payload
+            <span class="property-type">string</span>
+        </dt>
+        <dd>The type of nodes you wish to retrieve</dd>
+    </dl>
     <h3>Outputs</h3>
-    <p>It will out put a list of object ids that match the query object.</p>
+    <ol class="node-ports">
+            <li>Standard output
+                <dl class="message-properties">
+                    <dt>payload <span class="property-type">array</span></dt>
+                    <dd>Array of string of the different nodes</dd>
+                </dl>
+            </li>
+        </ol>
  </script>

@@ -7,16 +7,20 @@ module.exports = function(RED) {
         var credentials = RED.nodes.getCredentials(config.sintelix);
 
         this.on('input', function(msg) {
-            var obj = msg.payload;
             // validate that msg.payload has the required parameters correctly formatted
-            if(obj.urls == null || obj.urls.length == 0) {
+            if(msg.payload == null || msg.payload.length == 0) {
                 return node.error("URLs cannot be empty");
             }
-            if(obj.collectionId == null) {
-                return node.error("Collection id must be specified");
+            if(config.collectionId == null) {
+                return node.error("Collection ID cannot be empty");
             }
-
-            obj.urls = obj.urls.join("\n");
+            
+            var obj = {};
+            obj.urls = msg.payload.join("\n");
+            obj.collectionId = config.collectionId;
+            obj.reportNetworks = config.reportNetworks;
+            obj.fullXml = config.fullXml;
+            obj.ingestionConfig = config.ingestionConfig;
             
             this.sintelixConfig.post(`${credentials.host}/services/collections/submitURLs`, JSON.stringify(obj)).then(function(response) {
                 msg.payload = response.body;

@@ -4,7 +4,11 @@
         category: "sintelix",
         defaults: {
             sintelix: {type: "sintelix-credentials", required: true},
-            name: {value: ""}
+            name: {value: ""},
+            collectionId: {value: 0, required: true},
+            ingestionConfig: {value: ""},
+            fullXml: {value: false},
+            reportNetworks: {value: false}
         },
         inputs: 1,
         outputs: 1,
@@ -22,6 +26,22 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
+        <label for="node-input-collectionId">Collection ID</label>
+        <input type="number" id="node-input-collectionId">
+    </div>
+    <div class="form-row">
+        <label for="node-input-ingestionConfig">Ingestion Config</label>
+        <input type="text" id="node-input-ingestionConfig">
+    </div>
+    <div class="form-row">
+        <label for="node-input-fullXml">Full XML</label>
+        <input type="checkbox" id="node-input-fullXml">
+    </div>
+    <div class="form-row">
+        <label for="node-input-reportNetworks">Report Networks</label>
+        <input type="checkbox" id="node-input-reportNetworks">
+    </div>
+    <div class="form-row">
         <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
         <input type="text" id="node-input-sintelix">
     </div>
@@ -31,22 +51,10 @@
     <p>Submits the selection of URLs passed to Sintelix to be ingested and added to the specified collection.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>urls
+        <dt>msg.payload
             <span class="property-type">array</span>
         </dt>
         <dd>An array of the urls to be processed</dd>
-        <dt>collectionId
-            <span class="property-type">integer</span>
-        </dt>
-        <dd>The id of the collection to add the processed urls to</dd>
-        <dt class="optional">ingestionConfig <span class="property-type">string</span></dt>
-        <dd>The ingestion configuration to be used when ingesting the urls</dd>
-        <dt class="optional">metadata <span class="property-type">Object</span></dt>
-        <dd>Additional metadata entries. These are added to the document as properties in the "External" category</dd>
-        <dt class="optional">fullXml <span class="property-type">bool</span></dt>
-        <dd>Return Full Document XML</dd>
-        <dt class="optional">reportNetworks <span class="property-type">bool</span></dt>
-        <dd>For each network update, return entity mappings to that network</dd>
     </dl>
     <h3>Outputs</h3>
     <ol class="node-ports">

@@ -1,27 +1,24 @@
-<!-- Search nodes node -->
+<!-- Get nodes types node -->
 <script type="text/javascript" >
-    RED.nodes.registerType("search-nodes", {
+    RED.nodes.registerType("get-node-types", {
         category: "sintelix",
         defaults: {
             sintelix: {type: "sintelix-credentials", required: true},
             name: {value: ""},
             networkId: {value: 0, required: true},
-            level: {value: "cl", required: true},
-            start: {value: 0, required: true},
-            limit: {value: 20, required: true},
-            count: {value: false, required: true}
+            level: {value: "cl", required: true}
         },
         inputs: 1,
         outputs: 1,
         icon: "sintelix-flower.png",
         color: "#EDF5FF",
         label: function() {
-            return this.name || "search-nodes";
+            return this.name || "get-node-types";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="search-nodes">
+<script type="text/x-red" data-template-name="get-node-types">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -39,26 +36,20 @@
         </select>
     </div>
     <div class="form-row">
-        <label for="node-input-start">Start</label>
-        <input type="number" id="node-input-start">
-    </div>
-    <div class="form-row">
-        <label for="node-input-limit">Limit</label>
-        <input type="number" id="node-input-limit">
-    </div>
-    <div class="form-row">
-        <label for="node-input-count">Count</label>
-        <input type="checkbox" id="node-input-count">
-    </div>
-    <div class="form-row">
         <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
         <input type="text" id="node-input-sintelix">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="search-nodes">
-    <p>The search nodes input takes various queries and filter and returns a list of nodes that match the criteria.</p>
-    <h3>Inputs</h3>
+<script type="text/x-red" data-help-name="get-node-types">
+    <p>The get node types node gets a list of node types from a network</p>
     <h3>Outputs</h3>
-    <p>It will out put a list of object ids that match the query object.</p>
+    <ol class="node-ports">
+            <li>Standard output
+                <dl class="message-properties">
+                    <dt>payload <span class="property-type">array</span></dt>
+                    <dd>Array of string of the different node types</dd>
+                </dl>
+            </li>
+        </ol>
  </script>

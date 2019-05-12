@@ -7,10 +7,12 @@ module.exports = function(RED) {
         var credentials = RED.nodes.getCredentials(config.sintelix);
 
         this.on('input', function(msg) {
-            var obj = msg.payload;
-            if(obj.projectId == null) {
+            var obj = {};
+            if(config.projectId == null) {
                 return node.error("You must specify the project id");
             }
+            obj.projectId = config.projectId;
+            
             this.sintelixConfig.post(`${credentials.host}/services/collections/list`, null, obj).then(function(response) {
                 msg.payload = JSON.parse(response.body);
                 node.send(msg);

@@ -4,7 +4,8 @@
         category: "sintelix",
         defaults: {
             sintelix: {type: "sintelix-credentials", required: true},
-            name: {value: ""}
+            name: {value: ""},
+            projectId: {value: 0, required: true}
         },
         inputs: 1,
         outputs: 1,
@@ -20,6 +21,10 @@
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-projectId">Project ID</label>
+        <input type="number" id="node-input-projectId">
     </div>
     <div class="form-row">
         <label for="node-input-sintelix"<i class="fa fa-tag"></i>Credentials</label>
