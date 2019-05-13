@@ -1,7 +1,6 @@
 module.exports = function(RED) {
 
     var request = require('request');
-    var objectToFormData = require('object-to-formdata');
     
     function SintelixCredentialsNode(n) {
         RED.nodes.createNode(this, n);
